@@ -1,0 +1,35 @@
+<% if (loggedin) {%>
+  <%-include("partials/secondaryHeader") %> <%} else {%> <%-include("partials/header") %> <%} %>
+
+<%- include("partials/goToTop") %> 
+
+<br> </br>
+  <br> </br>
+  <div class="container border">
+    <h2>Ticketpreise</h2>       
+    <table class="table table-striped">
+       <thead>
+          <tr>
+            <th></th>
+            <th>Pakett</th>
+            <th>Loge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left">Erwachsene</td>
+            <td>12€</td>
+            <td>15€</td>
+          </tr>
+          <tr>
+            <td class="text-left">Kinder bis einschl. 11 Jahre*</td>
+            <td>10€</td>
+            <td>13€</td>
+          </tr>
+        </tbody>
+    </table>
+ <br>
+    <p>*Vorlage eines gültigen Personalausweis kann im Kino verlangt werden.</p>
+  </div>
+  
+<%- include("partials/footer") %>

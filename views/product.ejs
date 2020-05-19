@@ -1,0 +1,56 @@
+<%- include("partials/header") %>
+
+<%- include("partials/goToTop") %>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title><%= data[0].name %></title>
+</head>
+
+
+
+<body>
+
+<section>
+    <div class="colorlib-shop">
+        <div class="container" max>
+            <div class="row row-pb-lg">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="product-detail-wrap">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="product-entry">
+                                    <img class="img-gallery-movie" src="<%= data[0].bildpfad %>" alt="image 1">
+                                    </img>
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="desc" style="margin-top: 10%; text-align: left; font-size: 15px;">
+                                    <h3><%= data[0].name %></h3>
+                                    <p><%= data[0].hid %></p>
+                                    <p><b>Preis:</b><br><%= data[0].preis %>€</p>
+
+                                    <b>Beschreibung: </b><br>
+                                    <p><i><%= data[0].beschreibung %></i><br/>
+                                        </p>
+                                    <a class="btn btn-outline-warning my-2 my-sm-0 btn-lg" href="/add-to-Cart/?pid= <%=data[0].pid%>" role="button">In den Waarenkorb</a>
+                                </div>
+                                <!-- Verfügbarkeitstabelle-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section style=" background-image: url(/images/bg.png);">
+    
+
+</section>
+
+
+<%- include("partials/footer") %>

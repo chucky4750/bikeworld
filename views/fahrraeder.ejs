@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/header") %>
+
+<body>
+
+  <section id="pricing">
+
+    <div class="jumbotron "style="" id="test">
+        <div class="container-fluid">
+
+            <div class="card-deck">
+                <% data.forEach(function(item){ %>
+                <div class="col-lg-4 col-md-6 " style="margin-bottom: 25px;"> 
+                <div class="card">
+                  <a href="/product/?name=<%= item.name%>">
+                    <div class="card-header bg-secondary">
+                      <img class="card-img-bottom" src="<%= item.photo %>" alt="movie1"/>
+                        <h5 class="card-title text-white"><%= item.name %></h5>
+                      </a>
+                    </div>
+                    <div class="card-body bg-secondary">
+                        <p class="card-text text-white">In den Größen</p>
+                    </div>
+                </div>
+                </div>
+                    <% } ); %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<button>Press</button>
+
+<!-- <script>
+  $(function() {
+
+    $("button").on("click", function () {
+      $.ajax({
+      type: 'GET',
+      url: '/fahrraeder',
+      success: function(result) {
+         $('#test').html(result);
+      }
+    });
+  })
+
+});
+</script> -->
+    
+ 
+</body>
