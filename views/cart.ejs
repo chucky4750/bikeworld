@@ -1,14 +1,16 @@
- <%-include("partials/header") %>
-  
-<%- include("partials/goToTop") %>  
+<% if (loggedin) { %>
+    <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
+
+<%- include("partials/goToTop") %>
     <div class="row" style="margin-top: 25px;">
         <div class="mx-auto" id="test">
             <ul class="list-group">
                 <% data.forEach(function(item){ %>
                 <li class="list-group-item">
-                <span class="badge">5</span>
-                <strong><%= item.name%></strong>
-                <span class="label label-success"><%= item.preis%>€</span>
+                <span class="badge"><%= item.anzahl%></span> <!-- Aus Query als Count nehmen-->
+                <strong><%= item.name%></strong><br>
+                <strong>Von <%= item.vonDay%>/<%= item.vonMonth%>/<%= item.vonYear%> bis <%= item.bisDay%>/<%= item.bisMonth%>/<%= item.bisYear%>     <%=item.DateDiff%></strong> <!-- Aus Query nehmen-->
+                <span class="label label-success"><%= item.preis%>€</span> 
                 <div class="btn-group">
                     <a href="/reduce/?pid=<%=item.pid%>"><button class="btn btn-warning btn-xs" type="button" >Entferne Buchung</button></a>
                 </div>
@@ -27,12 +29,13 @@
     </div>
 
     <hr>
-
+    <% if (data.length > 0) { %>
     <div class="row" style="float: right; margin-right: 2.5%;">
         <form method="POST" action="/payment">
             <input type="submit" value="Mit PayPal Bezahlen" name="bsubmit" class="checkout"
                    style="color:black"><!-- ohne Produkte im Warenkorb kein Einkauf -->
         </form>
     </div>
+    <%}%>
 
 <%-include("partials/footer") %>

@@ -25,6 +25,10 @@ class Payment {
 
     addToCart(req, res){
 
+        if (req.session.loggedin==null) {
+            res.redirect("/login");
+        }else{
+
         var amount = 0;
         var key_saver = [] ;
         var value_saver = [];
@@ -33,31 +37,56 @@ class Payment {
             key_saver [amount] = key;
             value_saver [amount] = req.query[key];
             amount++;
-        }  
+        } 
+        
+        
+       var tempFrom = ""+req.body.datepickerFromProduct;
+       var tempTo = ""+req.body.datepickerToProduct;
 
-      selectquery = "INSERT INTO warenkorb VALUES ("+value_saver[0]+", 3, 2)";
-
-      con.query(selectquery, function (err, result, fields) {
-      if (err) throw err; })
-
-      selectquery = "INSERT INTO is_taken VALUES ("+value_saver[0]+",'1999-01-01','2222-12-31')";
-
-      con.query(selectquery, function (err, result, fields) {
-      if (err) throw err; })
-
-      this.goToCart(req, res)
-
-      //um zum Cart zu gelangen, müssen alle Informationen Empfnagen werden, die dort Eingespeichert sind für Kund mit kid.--> große Tabelle mit viel Joins
+      var tempFromArray = tempFrom.split("/");
+      var tempToArray = tempTo.split("/");
+        tempFrom ="'";
+        tempTo = "'";
+      for (var i = tempFromArray.length-1; i>=0; i--) {
+        if (i != 0){
+        tempFrom += tempFromArray[i]+"-";
+        tempTo += tempToArray[i]+"-";
+        }
+        else{ 
+        tempFrom += tempFromArray[i]+"'";
+        tempTo += tempToArray[i]+"'";
+        }
       }
 
-    goToCart(req, res){
-      var selectquery = "SELECT * FROM produkt WHERE PID IN (SELECT pid FROM warenkorb WHERE kid = 3)";
+      selectquery = "INSERT INTO warenkorb VALUES ("+value_saver[0]+", "+req.session.kid+", 1, DATE("+tempFrom+"), DATE("+tempTo+"))";
 
       con.query(selectquery, function (err, result, fields) {
-      if (err) throw err; 
-      res.render("cart", {data:result
+      if (err) throw err; })
+
+      selectquery = "INSERT INTO is_taken VALUES ("+value_saver[0]+", DATE("+tempFrom+"), DATE("+tempTo+"), 0)";
+
+      con.query(selectquery, function (err, result, fields) {
+      if (err) throw err; })
+
+      res.redirect("/cart")
+
+        }
+    }
+
+    goToCart(req, res){
+        if (req.session.kid!=null) {
+      var selectquery = "SELECT P.pid, W.anzahl, P.name, P.preis, YEAR(W.von) AS vonYear, MONTH(W.von) AS vonMonth, DAY(W.von) AS vonDay, YEAR(W.bis) AS bisYear, MONTH(W.bis) AS bisMonth, DAY(W.bis) AS bisDay, ABS(DATEDIFF(W.von, W.bis)-1) AS DateDiff FROM produkt AS P INNER JOIN warenkorb AS W ON P.pid = W.pid WHERE W.kid = "+req.session.kid;
+
+      con.query(selectquery, function (err, result, fields) {
+      if (err) throw err;
+
+      res.render("cart", {data:result, loggedin: req.session.loggedin
       });
     });
+
+    }else {
+        res.redirect("/login");
+    }
 
     }
 
@@ -91,32 +120,13 @@ class Payment {
                 });
             }
 
-                var selectquery = "DELETE FROM is_taken WHERE PID ="+value_saver[0]+" AND von = '1999-01-01' AND bis = '2222-12-31'"
+                var selectquery = "DELETE FROM is_taken WHERE PID ="+value_saver[0]+" AND booked = 0"
                 con.query(selectquery, function (err, result, fields) {
                     if (err) throw err;
                      
                 });
                 res.redirect("/cart");          
         });
-    }
-
-    cancelTickt(bookingId) {
-        model.Booking.findById(bookingId)
-            .then(results => {
-                if (results) {
-                    model.Session.findByIdAndUpdate(
-                        results.session , { $pull: { "reserved": { booking: bookingId} } },
-                        { safe: true, upsert: true },
-                        function(err, node) {
-                            if (err) {
-                                console.log(err)
-                            }else{
-                                console.log(node);
-                            }
-                        });
-                }
-            })
-            .catch(err => console.log(err));
     }
 
     async renderPayments(req, res){ //--> große Query mit Joins, hier müssen alle Daten zusammengetragen werden, die im Waarenkorb liegen.
@@ -136,14 +146,14 @@ class Payment {
 
     async initalizePayment(req, res){
 
-        /*if (!req.session.cart) {
-            res.render("cart", {bookings: null});
-        } */
+        if (req.session.loggedin==null) {
+            res.render("login");
+        }
 
-        total = this.cart.totalPrice;
+        total = 500; //count query
 
        await this.createPayment(req, res, total);
-        req.session.destroy();
+        //req.session.destroy();
     }
 
     async createPayment(req, res, total) {
@@ -152,8 +162,8 @@ class Payment {
 
                 "intent": "sale",
                 "redirect_urls": {
-                    "return_url": "http://localhost/success",
-                    "cancel_url": "http://localhost/cancel"
+                    "return_url": "http://localhost:3000/success",
+                    "cancel_url": "http://localhost:3000/cancel"
                 },
                 "payer": {
                     "payment_method": "paypal"
@@ -186,42 +196,38 @@ class Payment {
     }
 
 
-    async excutePayment(req, res, chosenFilm) {
+    async excutePayment(req, res) {
         const payerId = req.query.PayerID;
         const paymentId = req.query.paymentId;
 
+        console.log(payerId +" and "+ paymentId);
+
         
-        const bookedFilm = await model.Film.find({title: chosenFilm}).exec();
-         await model.Booking.findOneAndUpdate({title: bookedFilm._id}, {
-            $set: {
-                paymentId: paymentId,
-                price: total
-            }
-        }).exec();
+        //const bookedFilm = await model.Film.find({title: chosenFilm}).exec();
+         //await model.Booking.findOneAndUpdate({title: bookedFilm._id}, {
+            //$set: {
+                //paymentId: paymentId,
+                //price: total
+            //}
+        //}).exec();
 
         const execute_payment_json = {
             "payer_id": payerId,
             "transactions": [{
                 "amount": {
                     "currency": "EUR",
-                    "total": total
+                    "total": 50
                 }
             }]
         };
-
-          /*  const order = await model.CartOrder({
-                user: req.user,
-                paymentId: paymentId,
-                cart: this.cart
-            }). save();*/
 
         await paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
             if (error) {
                 console.log(error.response);
                 throw error;
             } else {
-                console.log(JSON.stringify(payment));
-                res.render("check", {loggedin: req.isAuthenticated()});
+                //console.log(JSON.stringify(payment));
+                res.redirect("check");
             }
         });
 

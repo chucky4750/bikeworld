@@ -20,8 +20,7 @@ module.exports.routes = (app) => {
             controller.user.login(req, res);
         })
         .get("/logout", (req, res) => {
-            req.logout();
-            req.session.destroy();
+            req.session.loggedin=false;
             res.redirect("/");
         })
         .get('/signup', (req, res) => {

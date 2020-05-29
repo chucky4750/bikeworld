@@ -45,8 +45,10 @@ class User {
 
 
     login(req, res) { // works
-        var email= req.body.email;
-  var password = req.body.password;
+        try{
+        var email= req.body.username;
+        console.log(email);
+  var password = req.body.passwordLog;
   con.query('SELECT * FROM kunde WHERE email = ?',[email], async function (error, results, fields) {
     if (error) {
       res.send({
@@ -54,11 +56,14 @@ class User {
         "failed":"error ocurred"
       })
     }else{
+        
       if(results.length >0){
-        const comparision = await bcrypt.compare(password, results[0].password)
+        const comparision = await bcrypt.compare(password, results[0].pw)
         if(comparision){
             req.session.loggedin = true;
-            req.session.username = username;
+            req.session.username = email;
+            req.session.kid = results[0].kid;
+            console.log(results[0].kid +" und " + req.session.kid);
             res.redirect('/');
             res.send({
               "code":200,
@@ -80,6 +85,9 @@ class User {
       }
     }
     });
+    }catch(err) {
+        next(err);
+    }
 
    }
 

@@ -1,6 +1,7 @@
-<%-include("partials/header") %>
-  
-  <%- include("partials/goToTop") %>  
+<% if (loggedin) { %>
+  <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
+
+<%- include("partials/goToTop") %>
 
 <div style="text-align: left!important;">
     <div class="container">

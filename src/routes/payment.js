@@ -20,7 +20,7 @@ module.exports.routes = (app) => {
     });
 
 
-    app.get("/add-to-Cart", (req, res) => {
+    app.post("/add-to-Cart", (req, res) => {
         payment.addToCart(req, res);
     })
 
@@ -42,8 +42,8 @@ module.exports.routes = (app) => {
 
         .get("/success", (req, res) => {
             console.log("sucess route")
-            chosenFilm = film.getFilmId();
-            payment.excutePayment(req, res,chosenFilm );
+            //chosenFilm = film.getFilmId();
+            payment.excutePayment(req, res);
         })
         .get('/qrcode', (req, res, next) => {
 

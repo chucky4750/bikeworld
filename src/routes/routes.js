@@ -9,7 +9,7 @@ const productRouter = require('./product');
 //const pricingRouter = require('./pricing');
 const contact = require('./contact');
 const payment = require('./payment');
-//const checker = require('./check');
+const checker = require('./check');
 const imp = require('./impressum');
 const dat = require('./datenschutz');
 //const noCheck = require('./noChecking');
@@ -26,7 +26,7 @@ module.exports.routes = (app) => {
     //pricingRouter.routes(app);
     contact.routes(app);
     payment.routes(app);
-    //checker.routes(app);
+    checker.routes(app);
     imp.routes(app);
     dat.routes(app);
     //noCheck.routes(app);

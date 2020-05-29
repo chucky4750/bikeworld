@@ -15,54 +15,85 @@
               <ul class="nav navbar-nav">
                   <li role="presentation" class="nav-item">
                       <div class="dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/fahrraeder">
                             Fahrräder
-                          </button>
+                          </a>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="/fahrraeder/?katid=1">Mountainbike</a>
+                            <a class="dropdown-item" href="/fahrraeder/?katid=2">Trekkingrad</a>
+                            <a class="dropdown-item" href="/fahrraeder/?katid=3">Crossrad</a>
                           </div>
                         </div>
                   </li>
                   <li role="presentation" class="nav-item">
                       <div class="nav-item dropdown" aria-labelledby="dropdownMenuButton">
-                          <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">Dropdown</button>
+                          <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">E-Bikes</button>
                           <div role="menu" class="dropdown-menu">
-                              <a role="presentation" class="dropdown-item" href="#">First Item</a>
-                              <a role="presentation" class="dropdown-item" href="#">Second Item</a>
-                              <a role="presentation" class="dropdown-item" href="#">Third Item</a></div>
+                              <a role="presentation" class="dropdown-item" href="#">E-Mountainbike</a>
+                              <a role="presentation" class="dropdown-item" href="#">E-Trekking</a>
+                              <a role="presentation" class="dropdown-item" href="#">E-Cross</a></div>
                       </div>
                   </li>
                   <li role="presentation" class="nav-item">
                       <div class="nav-item dropdown">
-                          <button data-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">Dropdown</button>
+                          <button data-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">Zubehör</button>
                           <div role="menu" class="dropdown-menu">
-                              <a role="presentation" class="dropdown-item" href="#">First Item</a>
-                              <a role="presentation" class="dropdown-item" href="#">Second Item</a>
-                              <a role="presentation" class="dropdown-item" href="#">Third Item</a></div>
+                              <a role="presentation" class="dropdown-item" href="#">Kinderträger</a>
+                              <a role="presentation" class="dropdown-item" href="#">Helme</a>
+                              <a role="presentation" class="dropdown-item" href="#">Dinge</a></div>
                       </div>
                   </li>
               </ul>
-              <ul class="navbar-nav mx-auto">
-                  <li class="nav-item">
-                      <div>
-                          <form class="form-inline">
-                              
-                                  <input type="text" class="form-control form-control mr-sm-2" />
-                                  <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Suche</button>
               
-                          </form>
-                      </div>
-                  </li>
+              <ul ul class="nav navbar-nav mx-auto">
+                
+                  <form class="form-inline " action="/fahrraeder" method="POST">
+                <input name="datepickerFrom" id="datepickerFrom" readonly/>
+                                <script>
+                                    $('#datepickerFrom').datepicker({
+                                      format: 'dd/mm/yyyy',
+                                      uiLibrary: 'bootstrap4',
+                                      ignoreReadonly: true,
+                                        keyBinds: {
+                                            'delete': function () {
+                                            return false;
+                                            }
+                                        }
+                                      });
+                    </script>
+              
+                 
+                <input id="datepickerTo" name="datepickerTo" readonly/>
+                  <script>
+                      $('#datepickerTo').datepicker({
+                        format: 'dd/mm/yyyy',
+                      uiLibrary: 'bootstrap4',
+                      ignoreReadonly: true,
+                                        keyBinds: {
+                                            'delete': function () {
+                                            return false;
+                                            }
+                                        }
+                                  });
+                  </script>
+                 
               </ul>
-              <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                      <div class="">
-                          <a class="btn btn-outline-warning my-2 my-sm-0 btn-lg" href="/login" role="button">Login</a>
-                      </div>
-                  </li>
-              </ul>
+            
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <div>
+
+                      <input class="btn btn-primary" name="submit" type="submit" value="Suche verfügbare Räder" /> 
+                        <!-- <form class="form-inline">
+                            
+                                <input type="text" class="form-control form-control mr-sm-2" />
+                                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Suche</button>
+            
+                        </form> -->
+                    </div>
+                </li>
+              </form> 
+            </ul>
           </div>
       </div>
   </nav>

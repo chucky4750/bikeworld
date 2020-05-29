@@ -3,7 +3,7 @@ module.exports.routes = (app) => {
 
     app.get("/cashReservation", (req, res) => {
         res.render("cashReservation", {
-            loggedin: req.isAuthenticated(),
+            loggedin: req.session.loggedin
         })
     })
 

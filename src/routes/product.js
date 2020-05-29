@@ -15,13 +15,13 @@ module.exports.routes = (app) => {
 
           if (amount == 1) {
             if (key_saver[0] == "name"){ // im Format ?name=5
-                selectquery ="SELECT * FROM produkt WHERE name = '"+value_saver[0]+"'";
+                selectquery ="SELECT P.pid, P.name AS Pname, P.beschreibung AS beschreibung, P.preis AS preis, P.bildpfad AS bildpfad, H.name AS Hname, H.web AS web, H.email AS mail  FROM produkt AS P INNER JOIN hersteller AS H ON P.hid = H.hid WHERE P.name = '"+value_saver[0]+"'";
             } 
         }
 
         con.query(selectquery, function (err, result, fields) {
             if (err) throw err;
-            res.render("product", {data:result
+            res.render("product", {data:result, vonBis: req.cookies["userData"], loggedin: req.session.loggedin 
             })
             console.log(result);
         });

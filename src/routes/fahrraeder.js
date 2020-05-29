@@ -13,7 +13,7 @@ module.exports.routes = (app) => {
 
           if (amount == 1) {
             if (key_saver[0] == "katid"){ // im Format ?katid=5
-                selectquery ="SELECT * FROM produkt WHERE katid = " +value_saver[0];
+                selectquery ="SELECT DISTINCT P.name, P.preis, P.beschreibung, P.bildpfad FROM produkt AS P WHERE katid = " +value_saver[0];
             } 
 
           }else if (amount == 2){ // im Format ?von=5.5&bis
@@ -30,27 +30,31 @@ module.exports.routes = (app) => {
             
           con.query(selectquery, function (err, result, fields) {
             if (err) throw err;
-            res.render("fahrraeder", {data:result
+            res.render("fahrraeder", {data:result, loggedin: req.session.loggedin
             })
             //console.log(result);
         });
     });
 
     app.post("/fahrraeder", (req, res) => {
-      console.log(req.body.datepickerFrom +"till" +req.body.datepickerTo);
+      
+      var tmp1 = ""+req.body.datepickerFrom;
+      var tmp2 = ""+req.body.datepickerTo;
 
       let userDates = { 
-        from : req.body.datepickerFrom, 
-        to : req.body.datepickerTo
+        from : tmp1, 
+        to : tmp2
       }
+
+      console.log(req.body.datepickerFrom +"till" +req.body.datepickerTo);
 
       res.cookie("userData", userDates);
 
-      selectquery = "SELECT * FROM produkt WHERE pid NOT IN (SELECT pid FROM is_taken WHERE von <= '"+req.body.datepickerFrom+"' AND bis >= '"+req.body.datepickerTo+"' )";
+      selectquery = "SELECT * FROM produkt WHERE pid NOT IN (SELECT pid FROM is_taken WHERE '"+req.body.datepickerFrom+"' BETWEEN von AND bis AND '"+req.body.datepickerTo+"' BETWEEN von AND bis)";
 
       con.query(selectquery, function (err, result, fields) {
       if (err) throw err;
-      res.render("fahrraeder", {data:result
+      res.render("fahrraeder", {data:result, loggedin: req.session.loggedin
       });
       console.log(result)
     })

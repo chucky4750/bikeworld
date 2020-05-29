@@ -3,7 +3,7 @@ module.exports.routes = (app) => {
 
     app.get("/noCheck", (req, res) => {
         res.render("noCheck", {
-            loggedin: req.isAuthenticated(),
+            loggedin: req.session.loggedin
         })
     })
 

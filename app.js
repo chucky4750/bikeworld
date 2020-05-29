@@ -42,20 +42,6 @@ app.use((req, res, next) => {
 });
 
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "bikeworld"
-  });
-
-  con.connect(function(err) {
-    if (err) throw err;
-});
-
-
-
-
 app.use(flash());
 
 app.use(passport.initialize());

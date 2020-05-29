@@ -1,7 +1,7 @@
-<%-include("partials/header") %>
+<% if (loggedin) { %>
+  <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
 
-<%- include("partials/goToTop") %>  
-
+<%- include("partials/goToTop") %>
 <!-- Title -->
 
 <br>
@@ -53,6 +53,7 @@
       <br>
       <!-- Google Maps -->
       <div id="map-container-google-4">
+        
         <iframe src="https://maps.google.com/maps?q=mannheim%20coblitzalle&t=&z=13&ie=UTF8&iwloc=&output=embed"
           width=100% height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
 
