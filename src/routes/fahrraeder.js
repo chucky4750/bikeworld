@@ -41,16 +41,38 @@ module.exports.routes = (app) => {
       var tmp1 = ""+req.body.datepickerFrom;
       var tmp2 = ""+req.body.datepickerTo;
 
+
+      var tempFrom = tmp1;
+      var tempTo = tmp2;
+
       let userDates = { 
-        from : tmp1, 
-        to : tmp2
+        from : tempFrom, 
+        to : tempTo
       }
 
-      console.log(req.body.datepickerFrom +"till" +req.body.datepickerTo);
+     var tempFromArray = tempFrom.split("/");
+     var tempToArray = tempTo.split("/");
+       tempFrom ="'";
+       tempTo = "'";
+     for (var i = tempFromArray.length-1; i>=0; i--) {
+       if (i != 0){
+       tempFrom += tempFromArray[i]+"-";
+       tempTo += tempToArray[i]+"-";
+       }
+       else{ 
+       tempFrom += tempFromArray[i]+"'";
+       tempTo += tempToArray[i]+"'";
+       }
+     }
 
-      res.cookie("userData", userDates);
 
-      selectquery = "SELECT * FROM produkt WHERE pid NOT IN (SELECT pid FROM is_taken WHERE '"+req.body.datepickerFrom+"' BETWEEN von AND bis AND '"+req.body.datepickerTo+"' BETWEEN von AND bis)";
+      console.log(tempFrom +"till" + tempTo);
+
+      res.cookie("userDataFrom", tempFrom);
+      res.cookie("userDataTo", tempTo);
+
+      selectquery = "SELECT DISTINCT P.name, P.preis, P.beschreibung, P.bildpfad FROM produkt AS P LEFT JOIN is_taken on P.pid = is_taken.pid WHERE (is_taken.pid IS NULL) OR (NOT "+tempFrom+" BETWEEN von AND bis AND NOT "+tempTo+" BETWEEN von AND bis)"
+      //"SELECT * FROM produkt WHERE pid IN (SELECT pid FROM is_taken WHERE (NOT "+tempFrom+" BETWEEN von AND bis AND NOT "+tempTo+" BETWEEN von AND bis) OR (SELECT PID FROM produkt where PID NOT IN (SELECT PID FROM is_taken)))";
 
       con.query(selectquery, function (err, result, fields) {
       if (err) throw err;

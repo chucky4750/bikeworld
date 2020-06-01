@@ -80,7 +80,7 @@ module.exports.routes = (app) => {
         
 
         res.render("check", {
-            //loggedin: req.isAuthenticated(),
+            loggedin: req.session.loggedin
         })
     
 });    

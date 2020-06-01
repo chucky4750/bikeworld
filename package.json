@@ -41,6 +41,8 @@
     "passport-local-mongoose": "^5.0.1",
     "path": "^0.12.7",
     "paypal-rest-sdk": "^1.8.1",
+    "pdfjs": "^2.3.8",
+    "pdfjs-dist": "^2.3.200",
     "qr-image": "^3.2.0",
     "qrcode": "^1.4.4",
     "sendgrid": "^5.2.3"

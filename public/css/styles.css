@@ -26,3 +26,55 @@
 #bttBtn:hover {
   background-color: #555;
 }
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23707070' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23707070' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+body {padding-top: 70px; 
+}
+
+.table>tbody>tr>td, .table>tfoot>tr>td{
+  vertical-align: middle;
+}
+@media screen and (max-width: 600px) {
+  table#cart tbody td .form-control{
+  width:20%;
+  display: inline !important;
+}
+.actions .btn{
+  width:36%;
+  margin:1.5em 0;
+}
+
+.actions .btn-info{
+  float:left;
+}
+.actions .btn-danger{
+  float:right;
+}
+
+table#cart thead { display: none; }
+table#cart tbody td { display: block; padding: .6rem; min-width:320px;}
+table#cart tbody tr td:first-child { background: #333; color: #fff; }
+table#cart tbody td:before {
+  content: attr(data-th); font-weight: bold;
+  display: inline-block; width: 8rem;
+}
+
+
+
+table#cart tfoot td{display:block; }
+table#cart tfoot td .btn{display:block;}
+
+}
+
+canvas {
+  max-width: 100%;
+  
+  text-align:center;
+}

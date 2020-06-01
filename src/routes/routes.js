@@ -12,6 +12,7 @@ const payment = require('./payment');
 const checker = require('./check');
 const imp = require('./impressum');
 const dat = require('./datenschutz');
+const gut = require('./gutschein');
 //const noCheck = require('./noChecking');
 //const reserv = require('./CashReservation');
 
@@ -29,6 +30,7 @@ module.exports.routes = (app) => {
     checker.routes(app);
     imp.routes(app);
     dat.routes(app);
+    gut.routes(app);
     //noCheck.routes(app);
     //reserv.routes(app);
 

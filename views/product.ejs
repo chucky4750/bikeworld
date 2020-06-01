@@ -1,128 +1,106 @@
 <% if (loggedin) { %>
-    <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
+<%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
 
 <%- include("partials/goToTop") %>
 
 <!doctype html>
 <html lang="en">
 
-<head>
-    <title><%= data[0].Pname %></title>
-</head>
+
+
+
+
 
 <body>
 
-<section>
-    <div class="colorlib-shop">
-        <div class="container" max>
-            <div class="row row-pb-lg">
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="product-detail-wrap">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="product-entry">
-                                    <img class="img-gallery-movie" src="<%= data[0].bildpfad %>" alt="image 1">
-                                    </img>
-                                </div>
-                            </div>
+    <section>
 
-                            <div class="col-md-7">
-                                <div class="desc" style="margin-top: 10%; text-align: left; font-size: 15px;">
-                                    <h3><%= data[0].Pname %></h3>
-                                    <p><%= data[0].Hname %></p>
-                                    <p><b>Preis:</b><br><%= data[0].preis %>€</p>
+        <div class="container" id="test">
+            <h3 class="text-dark text-center"><%= data[0].Pname %></h3>
 
-                                    <b>Beschreibung: </b><br>
-                                    <p><i><%= data[0].beschreibung %></i><br/></p>
+            <p class="text-dark text-center"><%= data[0].Hname %></p>
+            <img src="<%= data[0].bildpfad %>" class="img-fluid mx-auto d-block">
+        </div>
 
-                                <form method="post"  action="/add-to-Cart/?pid=<%=data[0].pid%>">
 
-                                    <% if (vonBis == null) { %>
 
-                                    <input id="datepickerFromProduct" name="datepickerFromProduct" readonly/>
+        <div class="container mx-auto bg-light mb-5 rounded">
+            <p><b>Preis:</b><br><%= data[0].preis %>€</p>
 
-                                   <% } else { %>
-                                    
-                                    <input id="datepickerFromProduct" name="datepickerFromProduct" value="<%=vonBis.from%>" readonly/>
-                                    <% } %>
-                                        <script>
-                                            $('#datepickerFromProduct').datepicker({
-                                            format: 'dd/mm/yyyy',
-                                            uiLibrary: 'bootstrap4',
-                                            ignoreReadonly: true,
-                                            keyBinds: {
-                                                'delete': function () {
-                                                return false;
-                                                }
-                                            }
-                                            });
-                                    </script>
+            <b>Beschreibung: </b><br>
+            <p><i><%= data[0].beschreibung %></i><br /></p>
 
-                                    
+            <form class="form" method="post" action="/add-to-Cart/?pid=<%=data[0].pid%>">
+ 
+                <div class="row">
+                    <div class="col"> <% if (von == null) { %>
 
-                                    <% if (vonBis == null) { %>
+                        <input id="datepickerFromProduct" name="datepickerFromProduct" value="Von..." readonly />
 
-                                    <input id="datepickerToProduct" name="datepickerToProduct" readonly/>
+                        <% } else { %>
 
-                                    <% } else { %>
-    
-                                    <input id="datepickerToProduct" name="datepickerToProduct" value="<%=vonBis.to%>" readonly/>
-                                    <% } %>
-
-                                    <script>
-                                        $('#datepickerToProduct').datepicker({
-                                        format: 'dd/mm/yyyy',
-                                        uiLibrary: 'bootstrap4',
-                                        ignoreReadonly: true,
-                                        keyBinds: {
-                                            'delete': function () {
-                                            return false;
-                                            }
-                                        }
-                                        });
-
-                                    /*function checkInputValue(){
-
-                                    // Selecting the input element and get its value 
-
-                                    var inputValFrom = document.getElementById("datepickerFromProduct").value;
-                                    var inputValTo = document.getElementById("datepickerToProduct").value;
-
-                                    var isCorrectFrom=false;
-                                    var isCorrectTo=false;
-
-                                    if (inputValFrom.charAt(2) == '/' && inputValFrom.charAt(5) == '/' && inputValTo.charAt(2) == '/' && inputValTo.charAt(5) == '/') {
-                                        isCorrectFrom = true;
-                                        isCorrectTo = true;
+                        <input id="datepickerFromProduct" name="datepickerFromProduct" value="<%=von%>"
+                            readonly />
+                        <% } %>
+                        <script>
+                            $('#datepickerFromProduct').datepicker({
+                                format: 'dd/mm/yyyy',
+                                uiLibrary: 'bootstrap4',
+                                ignoreReadonly: true,
+                                keyBinds: {
+                                    'delete': function () {
+                                        return false;
                                     }
+                                }
+                            });
+                        </script>
+                    </div>
+                    <div class="col">
 
-                                    if (isCorrectFrom && isCorrectTo) {
-                                        alert("Correct")
-                                    }else 
+                        <% if (bis == null) { %>
 
-                                    alert("Wrong input");
+                        <input id="datepickerToProduct" name="datepickerToProduct" value="Bis..." readonly />
 
-                                }*/
+                        <% } else { %>
 
-                                    </script>
+                        <input id="datepickerToProduct" name="datepickerToProduct" value="<%=bis%>" readonly />
+                        <% } %>
 
+                        <script>
+                            $('#datepickerToProduct').datepicker({
+                                format: 'dd/mm/yyyy',
+                                uiLibrary: 'bootstrap4',
+                                ignoreReadonly: true,
+                                keyBinds: {
+                                    'delete': function () {
+                                        return false;
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
 
-                                    <input s="btn btn-outline-warning my-2 my-sm-0 btn-lg" id="log" type="submit" name="xsubmit" value="In den Warenkorb" />
-                                </form>
-                                </div>
-                                <!-- Verfügbarkeitstabelle-->
-                            </div>
-                        </div>
+                    <div class="col">
+                        <button class="btn btn-outline-warning my-2 my-sm-0" id="log" name="log" onclick="update()">Aktualisieren</button>
+                    </div>
+
+                    
+
+                
+
+                    <div class="col">
+                        <input class="btn btn-outline-warning my-2 my-sm-0 float-right" id="log" type="submit"
+                            name="xsubmit" value="In den Warenkorb" />
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
-</section>
-<section style=" background-image: url(/images/bg.png);">
-    
 
-</section>
+        <div>
+            <span>Vorhandene:<%= data[0].anzahl%></span>
+            <span>Pid: <%= data[0].pid%></span>
+        </div>
+        <!-- Verfügbarkeitstabelle-->
+    </section>
 
-
-<%- include("partials/footer") %>
+    <%- include("partials/footer") %>

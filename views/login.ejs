@@ -1,20 +1,26 @@
 <%- include("partials/headerSignon") %>
 
 
-<div class="contact-wrap" style="width:60%;margin-right:auto;margin-left:auto;">
-	<h1 class="text-light"></h1>
-		<br>
-		<form method="post">
-			<input class="form-control inputEmail" name="username" placeholder="E-mail" type="email" id="username" /><br> <!-- Eingabe Benutzername -->
-			<input class="form-control inputEmail" name="passwordLog" placeholder="Passwort" type="password" id="passwordLog" /><br> <!-- Eingabe Passwort -->
-			<br>
-			<input name="cookie" type="checkbox" value="ja"/> Angemeldet bleiben&#063;<br/><br> 
-			<input class="btn btn-primary" id="log" type="submit" name="xsubmit" value="Anmelden" /><br><br> <!-- Anmelden: submit button -->
-            <a href="/register">Registrierung</a>
-            <br>
-            <a href="../login/forgot/">Passwort vergessen?</a>
+<div class="contact-wrap" style="width:30%;margin-right:auto;margin-left:auto;">
+	<h1 class="text-dark text-center mt-5 pt-1">Login</h1>
+	<br>
 
-		</form>
+	<div class="container mx-auto bg-light mb-5 rounded">
+	<form method="post">
+		<br>
+			<input class="form-control inputEmail" name="username" placeholder="E-mail" type="email"
+				id="username" /><br> <!-- Eingabe Benutzername -->
+			<input class="form-control inputEmail" name="passwordLog" placeholder="Passwort" type="password"
+				id="passwordLog" /><br> <!-- Eingabe Passwort -->
+			<br>
+			<input name="cookie" type="checkbox" value="ja" /> Angemeldet bleiben&#063;<br /><br>
+			<input class="btn btn-primary" id="log" type="submit" name="xsubmit" value="Anmelden" /><br><br>
+			<!-- Anmelden: submit button -->
+			<a href="/register">Registrierung</a>
+			<br>
+			<p class="text-light">Passwort vergessen?</p>
+	</form>
+</div>
 </div>
 
 

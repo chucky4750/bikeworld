@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('inits')%>
+</head>
+
+<body>
+  <section id="title">
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="/">BikeWorld</a>
+          <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse"id="navcol-1">
+              <ul class="nav navbar-nav">
+                <li role="presentation" class="nav-item">
+                 
+              </li>
+                  <li role="presentation" class="nav-item">
+                      <div class="dropdown">
+                          <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fahrräder</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/fahrraeder/?katid=1">Mountainbike</a>
+                            <a class="dropdown-item" href="/fahrraeder/?katid=2">Trekkingrad</a>
+                            <a class="dropdown-item" href="/fahrraeder/?katid=3">Crossrad</a>
+                          </div>
+                        </div>
+                  </li>
+                  <li role="presentation" class="nav-item">
+                    <div class="dropdown">
+                      <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">E-Bikes</a>
+                          <div role="menu" class="dropdown-menu">
+                              <a class="dropdown-item" href="#">E-Mountainbike</a>
+                              <a class="dropdown-item" href="#">E-Trekking</a>
+                              <a class="dropdown-item" href="#">E-Cross</a></div>
+                      </div>
+                  </li>
+                  <li role="presentation" class="nav-item">
+                    <div class="dropdown">
+                      <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Zubehör</a>
+                          <div role="menu" class="dropdown-menu">
+                              <a class="dropdown-item" href="#">Kinderträger</a>
+                              <a class="dropdown-item" href="#">Helme</a>
+                              <a class="dropdown-item" href="#">Dinge</a></div>
+                      </div>
+                  </li>
+              </ul>
+              
+              <ul class="nav navbar-nav mx-auto">
+                
+                  <div class= "m-1"><form class="form-inline" action="/fahrraeder" method="POST">
+                <input name="datepickerFrom" id="datepickerFrom"/>
+                                <script>
+                                    $('#datepickerFrom').datepicker({
+                            uiLibrary: 'bootstrap4'
+                          });
+                    </script>
+              
+                 
+                <input id="datepickerTo" name="datepickerTo"/>
+                  <script>
+                      $('#datepickerTo').datepicker({
+                      uiLibrary: 'bootstrap4'
+                                  });
+                  </script>
+                 </div>
+              </ul>
+            
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <div>
+
+                      <input class="btn btn-primary" name="submit" type="submit" value="Verfügbare Räder" /> 
+                        <!-- <form class="form-inline">
+                            
+                                <input type="text" class="form-control form-control mr-sm-2" />
+                                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Suche</button>
+            
+                        </form> -->
+                    </div>
+                </li>
+              </form> 
+            </ul>
+
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <div class="">
+                          <a class="btn btn-outline-warning my-2 my-sm-0 btn-lg" href="/login" role="button">Login</a>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+</section>
+
+</body>
+</html>

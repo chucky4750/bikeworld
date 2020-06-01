@@ -1,11 +1,13 @@
+<% if (loggedin) { %>
+  <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
+
+<%- include("partials/goToTop") %>
+
 <!DOCTYPE html>
 
 <html lang="en">
 
-  <% if (loggedin) { %>
-    <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
 
-<%- include("partials/goToTop") %>
 
  
 
@@ -15,7 +17,6 @@
 
   <section id="pricing">
 
- 
 
     <div class="jumbotron" id="test">
 
@@ -27,15 +28,15 @@
 
           <% data.forEach(function(item){ %>
 
-          <div class="col-lg-3 col-md-6 ">
+            <div class="col-lg-3 col-md-6 ">
 
             <div class="card m-1">
 
               <a class="text-dark text-center" href="/product/?name=<%= item.name%>">
 
-                <div class="card-header">
+                <div class="card-header bg-white">
 
-                  <img class="card-img-top" src="<%= item.bildpfad %>" alt="movie1" />
+                  <img class="card-img-top" src="<%= item.bildpfad %>" alt="bike" />
 
                   <h5 class="card-title mt-2"><%= item.name %></h5>
 
@@ -51,7 +52,7 @@
 
             </div>
 
-          </div>
+            </div>
 
         </div>
 
@@ -62,6 +63,8 @@
     </div>
 
     </div>
+
+
 
   </section>
 
@@ -100,3 +103,5 @@
 });
 
 </script> -->
+
+<%- include('partials/footer') %>

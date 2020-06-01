@@ -75,7 +75,7 @@ class Payment {
 
     goToCart(req, res){
         if (req.session.kid!=null) {
-      var selectquery = "SELECT P.pid, W.anzahl, P.name, P.preis, YEAR(W.von) AS vonYear, MONTH(W.von) AS vonMonth, DAY(W.von) AS vonDay, YEAR(W.bis) AS bisYear, MONTH(W.bis) AS bisMonth, DAY(W.bis) AS bisDay, ABS(DATEDIFF(W.von, W.bis)-1) AS DateDiff FROM produkt AS P INNER JOIN warenkorb AS W ON P.pid = W.pid WHERE W.kid = "+req.session.kid;
+      var selectquery = "SELECT P.pid, P.bildpfad, W.anzahl, P.name, P.preis, YEAR(W.von) AS vonYear, MONTH(W.von) AS vonMonth, DAY(W.von) AS vonDay, YEAR(W.bis) AS bisYear, MONTH(W.bis) AS bisMonth, DAY(W.bis) AS bisDay, ABS(DATEDIFF(W.von, W.bis)-1) AS DateDiff FROM produkt AS P INNER JOIN warenkorb AS W ON P.pid = W.pid WHERE W.kid = "+req.session.kid;
 
       con.query(selectquery, function (err, result, fields) {
       if (err) throw err;

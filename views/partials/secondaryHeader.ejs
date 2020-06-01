@@ -1,100 +1,115 @@
 <!doctype html>
 <html lang="en">
 
+<head>
   <%- include('inits')%>
+</head>
+
 <body>
-
-
-  <nav class="navbar navbar-light navbar-expand-md">
+  <section id="title">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
       <div class="container-fluid">
-          <a class="navbar-brand" href="/">BikeWorld</a>
-          <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse"id="navcol-1">
-              <ul class="nav navbar-nav">
-                  <li role="presentation" class="nav-item">
-                      <div class="dropdown">
-                          <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/fahrraeder">
-                            Fahrräder
-                          </a>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/fahrraeder/?katid=1">Mountainbike</a>
-                            <a class="dropdown-item" href="/fahrraeder/?katid=2">Trekkingrad</a>
-                            <a class="dropdown-item" href="/fahrraeder/?katid=3">Crossrad</a>
-                          </div>
-                        </div>
-                  </li>
-                  <li role="presentation" class="nav-item">
-                      <div class="nav-item dropdown" aria-labelledby="dropdownMenuButton">
-                          <button data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">E-Bikes</button>
-                          <div role="menu" class="dropdown-menu">
-                              <a role="presentation" class="dropdown-item" href="#">E-Mountainbike</a>
-                              <a role="presentation" class="dropdown-item" href="#">E-Trekking</a>
-                              <a role="presentation" class="dropdown-item" href="#">E-Cross</a></div>
-                      </div>
-                  </li>
-                  <li role="presentation" class="nav-item">
-                      <div class="nav-item dropdown">
-                          <button data-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-primary dropdown-toggle" href="#">Zubehör</button>
-                          <div role="menu" class="dropdown-menu">
-                              <a role="presentation" class="dropdown-item" href="#">Kinderträger</a>
-                              <a role="presentation" class="dropdown-item" href="#">Helme</a>
-                              <a role="presentation" class="dropdown-item" href="#">Dinge</a></div>
-                      </div>
-                  </li>
-              </ul>
-              
-              <ul ul class="nav navbar-nav mx-auto">
+        <a class="navbar-brand" href="/">BikeWorld</a>
+        <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="nav navbar-nav">
+            <li role="presentation" class="nav-item">
+
+            </li>
+            <li role="presentation" class="nav-item">
+              <div class="dropdown">
+                <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">Fahrräder</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/fahrraeder/?katid=1">Mountainbike</a>
+                  <a class="dropdown-item" href="/fahrraeder/?katid=2">Trekkingrad</a>
+                  <a class="dropdown-item" href="/fahrraeder/?katid=3">Crossrad</a>
+                </div>
+              </div>
+            </li>
+            <li role="presentation" class="nav-item">
+              <div class="dropdown">
+                <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">E-Bikes</a>
+                <div role="menu" class="dropdown-menu">
+                  <a class="dropdown-item" href="/fahrraeder/?katid=4">E-Mountainbike</a>
+                  <a class="dropdown-item" href="/fahrraeder/?katid=5">E-Trekking</a>
+                  <a class="dropdown-item" href="/fahrraeder/?katid=6">E-Cross</a></div>
+              </div>
+            </li>
+            <li role="presentation" class="nav-item">
+              <div class="dropdown">
+                <a class="m-1 text-white btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">Zubehör</a>
+                  <div role="menu" class="dropdown-menu">
+                    <a class="dropdown-item" href="/fahrraeder/?katid=7">Kinderträger</a>
+                    <a class="dropdown-item" href="/fahrraeder/?katid=8">Helme</a>
+                </div>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav mx-auto">
+
+            <form class="form-inline" action="/fahrraeder" method="POST">
+              <div class="mr-2">
+                <input name="datepickerFrom" id="datepickerFrom" value="Von..." readonly />
+                <script>
+                  $('#datepickerFrom').datepicker({
+                    format: 'dd/mm/yyyy',
+                    uiLibrary: 'bootstrap4',
+                    ignoreReadonly: true,
+                    keyBinds: {
+                      'delete': function () {
+                        return false;
+                      }
+                    }
+                  });
+                </script>
+              </div>
+
+              <div>
+                <input id="datepickerTo" name="datepickerTo" value="Bis..." readonly />
+                <script>
+                  $('#datepickerTo').datepicker({
+                    format: 'dd/mm/yyyy',
+                    uiLibrary: 'bootstrap4',
+                    ignoreReadonly: true,
+                    keyBinds: {
+                      'delete': function () {
+                        return false;
+                      }
+                    }
+                  });
+                </script>
+              </div>
+          </ul>
+
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <div>
+
+                <input class="btn btn-primary" name="submit" type="submit" value="Verfügbare Räder" />
                 
-                  <form class="form-inline " action="/fahrraeder" method="POST">
-                <input name="datepickerFrom" id="datepickerFrom" readonly/>
-                                <script>
-                                    $('#datepickerFrom').datepicker({
-                                      format: 'dd-mm-yyyy',
-                                      uiLibrary: 'bootstrap4'
-                                      });
-                    </script>
-              
-                 
-                <input id="datepickerTo" name="datepickerTo" readonly/>
-                  <script>
-                      $('#datepickerTo').datepicker({
-                        format: 'dd-mm-yyyy',
-                      uiLibrary: 'bootstrap4'
-                                  });
-                  </script>
-                 
-              </ul>
-            
-              <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <div>
+              </div>
+            </li>
+            </form>
+          </ul>
 
-                      <input class="btn btn-primary" name="submit" type="submit" value="Suche verfügbare Räder" /> 
-                        <!-- <form class="form-inline">
-                            
-                                <input type="text" class="form-control form-control mr-sm-2" />
-                                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Suche</button>
-            
-                        </form> -->
-                    </div>
-                </li>
-              </form> 
-            </ul>
-
-
-
-              <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                      <div class="">
-                          <a class="btn btn-outline-warning my-2 my-sm-0 btn-lg" href="/logout" role="button">Logout</a>
-                      </div>
-                  </li>
-              </ul>
-          </div>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <div class="">
+                <a class="btn btn-outline-warning my-2 my-sm-0 btn-lg" href="/logout" role="button">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-  </nav>
-  
+    </nav>
+
+  </section>
+
 </body>
+
 </html>
