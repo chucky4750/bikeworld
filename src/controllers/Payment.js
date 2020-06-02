@@ -1,11 +1,8 @@
 var con = require('../connection');
 const paypal = require("paypal-rest-sdk");
-const {booking, film} = require('./Controller');
-const model = require('../models/model');
-const Cart = require('../models/cart');
 
-let total = "";
-let cart = "";
+
+var globalTotal = 0;
 
 
 class Payment {
@@ -74,11 +71,16 @@ class Payment {
     }
 
     goToCart(req, res){
+        globalTotal=0;
         if (req.session.kid!=null) {
-      var selectquery = "SELECT P.pid, P.bildpfad, W.anzahl, P.name, P.preis, YEAR(W.von) AS vonYear, MONTH(W.von) AS vonMonth, DAY(W.von) AS vonDay, YEAR(W.bis) AS bisYear, MONTH(W.bis) AS bisMonth, DAY(W.bis) AS bisDay, ABS(DATEDIFF(W.von, W.bis)-1) AS DateDiff FROM produkt AS P INNER JOIN warenkorb AS W ON P.pid = W.pid WHERE W.kid = "+req.session.kid;
+            var selectquery = "SELECT P.pid, P.bildpfad, W.anzahl, P.name, P.preis, YEAR(W.von) AS vonYear, MONTH(W.von) AS vonMonth, DAY(W.von) AS vonDay, YEAR(W.bis) AS bisYear, MONTH(W.bis) AS bisMonth, DAY(W.bis) AS bisDay, ABS(DATEDIFF(W.von, W.bis)-1) AS DateDiff FROM produkt AS P INNER JOIN warenkorb AS W ON P.pid = W.pid WHERE W.kid = "+req.session.kid;
 
       con.query(selectquery, function (err, result, fields) {
       if (err) throw err;
+
+      for(var i = 0; i<result.length; i++){
+        globalTotal += result[i].preis * result[i].DateDiff;
+      }
 
       res.render("cart", {data:result, loggedin: req.session.loggedin
       });
@@ -129,31 +131,15 @@ class Payment {
         });
     }
 
-    async renderPayments(req, res){ //--> große Query mit Joins, hier müssen alle Daten zusammengetragen werden, die im Waarenkorb liegen.
-        console.log(req.session.cart);
-        if (!req.session.cart) {
-            res.render("cart", {bookings: null});
-        }else {
-            const cart = await new Cart(req.session.cart ? req.session.cart : {});
-            const cartArray = await cart.generateArray();
-            res.render("cart",
-                {
-                    bookings: cartArray,
-                    totalPrice: cart.totalPrice
-                });
-        }
-    }
-
     async initalizePayment(req, res){
 
         if (req.session.loggedin==null) {
             res.render("login");
         }
 
-        total = 500; //count query
+        var total = globalTotal;
 
        await this.createPayment(req, res, total);
-        //req.session.destroy();
     }
 
     async createPayment(req, res, total) {
@@ -202,21 +188,12 @@ class Payment {
 
         console.log(payerId +" and "+ paymentId);
 
-        
-        //const bookedFilm = await model.Film.find({title: chosenFilm}).exec();
-         //await model.Booking.findOneAndUpdate({title: bookedFilm._id}, {
-            //$set: {
-                //paymentId: paymentId,
-                //price: total
-            //}
-        //}).exec();
-
         const execute_payment_json = {
             "payer_id": payerId,
             "transactions": [{
                 "amount": {
                     "currency": "EUR",
-                    "total": 50
+                    "total": globalTotal
                 }
             }]
         };
@@ -226,7 +203,7 @@ class Payment {
                 console.log(error.response);
                 throw error;
             } else {
-                //console.log(JSON.stringify(payment));
+                
                 res.redirect("check");
             }
         });

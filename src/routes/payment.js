@@ -1,14 +1,6 @@
 
 const paypal = require("paypal-rest-sdk");
-const {payment, booking, film} = require('../controllers/Controller.js');
-let chosenFilm = '';
-const model = require('../models/model');
-const qr = require('qr-image');
-const fs = require('fs');
-const Cart = require('../models/cart');
-let total = "";
-let title = "";
-let bookingIdentifier = "";
+const { payment } = require('../controllers/Controller.js');
 
 
 module.exports.routes = (app) => {
@@ -24,20 +16,20 @@ module.exports.routes = (app) => {
         payment.addToCart(req, res);
     })
 
-    .get("/reduce", (req, res)=>{
-        payment.reduce(req, res);
-    })
+        .get("/reduce", (req, res) => {
+            payment.reduce(req, res);
+        })
 
-    
-    .get("/cart", (req, res) => {
-        payment.goToCart(req, res)
-    })
+
+        .get("/cart", (req, res) => {
+            payment.goToCart(req, res)
+        })
 
         .post('/payment', (req, res) => {
-           payment.initalizePayment(req, res);
+            payment.initalizePayment(req, res);
 
         })
-        
+
 
 
         .get("/success", (req, res) => {
@@ -45,51 +37,4 @@ module.exports.routes = (app) => {
             //chosenFilm = film.getFilmId();
             payment.excutePayment(req, res);
         })
-        .get('/qrcode', (req, res, next) => {
-
-
-
-          //  const qr_txt = "www.CineWorld.com";
-            const qr_txt = "title: "+  title + " booking id: " + bookingIdentifier;
-            var qr_png = qr.imageSync(qr_txt, {type: 'png'});
-
-// Generate a random file name
-            let qr_code_file_name = new Date().getTime() + '.png';
-
-
-            fs.writeFileSync('./public/qr/' + qr_code_file_name, qr_png, (err) => {
-
-                if (err) {
-                    console.log(err);
-                }
-
-            });
-
-// Send the link of generated QR code
-            res.send({
-                'qr_img': "qr/" + qr_code_file_name
-            });
-
-
-        })
-        .get("/cancel/:filmId", (req, res) => res.send("canceled"))
-
-        .get("/checkout", (req, res) => {
-            res.render("checkout")
-        })
-
-        .get("/profile", (req, res)=>{
-            model.CartOrder.find({ user: req.user}, (err, orders)=>{
-                var cart;
-                orders.forEach(function (order) {
-                    cart = new Cart(order.cart);
-                    cart.generateArray();
-                });
-                res.status(200).json(orders);
-   
-            })
-           });
-
-
-
-};
+}

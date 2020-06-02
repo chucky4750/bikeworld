@@ -21,21 +21,8 @@ module.exports.routes = (app) => {
         })
         .get("/logout", (req, res) => {
             req.session.loggedin=false;
+            //desatroy cookies
             res.redirect("/");
-        })
-        .get('/signup', (req, res) => {
-            res.render('signup')
-        })
-        .get("/register", (req, res) => {
-            if (req.isAuthenticated()) {
-                res.render("dummyPage",
-                    {
-                        text: "Your are already registered"
-                    });
-            } else {
-
-                res.render("register")
-            }
         })
 
         .post("/register", (req, res) => {

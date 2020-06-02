@@ -24,7 +24,12 @@ module.exports.routes = (app) => {
 
           if (amount == 1) {
             if (key_saver[0] == "name"){ // im Format ?name=xxxx
-                selectquery ="SELECT P.pid, P.name AS Pname, ((SELECT COUNT (name) FROM Produkt WHERE name = '"+value_saver[0]+"') - (SELECT COUNT(P.name) FROM produkt AS P LEFT JOIN is_taken on P.pid = is_taken.pid WHERE "+req.cookies['userDataFrom']+" BETWEEN von AND bis AND "+req.cookies['userDataTo']+" BETWEEN von AND bis)) AS anzahl, P.Beschreibung_lang AS beschreibung, P.preis AS preis, P.bildpfad AS bildpfad, H.name AS Hname, H.web AS web, H.email AS mail FROM Produkt AS P INNER JOIN hersteller AS H ON P.hid = H.hid WHERE P.name = '"+value_saver[0]+"' ORDER BY P.pid ASC";
+                selectquery ="SELECT P.pid, P.name AS Pname, ("
+                +"(SELECT COUNT (name) FROM Produkt WHERE name = '"+value_saver[0]+"') - "
+                +"(SELECT COUNT(P.name) FROM produkt AS P LEFT JOIN is_taken on P.pid = is_taken.pid "
+                  +"WHERE "+req.cookies['userDataFrom']+" BETWEEN von AND bis AND "+req.cookies['userDataTo']+" BETWEEN von AND bis)) AS anzahl, "
+                +"P.Beschreibung_lang AS beschreibung, P.preis AS preis, P.bildpfad AS bildpfad, H.name AS Hname, H.web AS web, H.email AS mail FROM Produkt "
+                +"AS P INNER JOIN hersteller AS H ON P.hid = H.hid WHERE P.name = '"+value_saver[0]+"' ORDER BY P.pid ASC";
             } 
         }
 
@@ -87,7 +92,10 @@ module.exports.routes = (app) => {
 
           if (amount == 1) {
             if (key_saver[0] == "name"){ // im Format ?name=xxxx
-                selectquery = "SELECT P.pid, P.name AS Pname, (COUNT (P.name) - (SELECT COUNT(P.name) FROM produkt AS P LEFT JOIN is_taken on P.pid = is_taken.pid WHERE "+req.cookies['userDataFrom']+" BETWEEN von AND bis AND "+req.cookies['userDataTo']+" BETWEEN von AND bis)) AS anzahl, P.Beschreibung_lang AS beschreibung, P.preis AS preis, P.bildpfad AS bildpfad, H.name AS Hname, H.web AS web, H.email AS mail  FROM Produkt AS P INNER JOIN hersteller AS H ON P.hid = H.hid WHERE P.name = '"+value_saver[0]+"' ORDER BY P.pid ASC"
+                selectquery = "SELECT P.pid, P.name AS Pname, (COUNT (P.name) - (SELECT COUNT(P.name) FROM produkt AS P LEFT JOIN is_taken on P.pid = is_taken.pid "
+                +"WHERE "+req.cookies['userDataFrom']+" BETWEEN von AND bis AND "+req.cookies['userDataTo']+" BETWEEN von AND bis)) AS anzahl, "
+                +"P.Beschreibung_lang AS beschreibung, P.preis AS preis, P.bildpfad AS bildpfad, H.name AS Hname, H.web AS web, H.email AS mail "
+                +" FROM Produkt AS P INNER JOIN hersteller AS H ON P.hid = H.hid WHERE P.name = '"+value_saver[0]+"' ORDER BY P.pid ASC"
             } 
         }
 
