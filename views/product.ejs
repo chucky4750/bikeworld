@@ -7,10 +7,6 @@
 <html lang="en">
 
 
-
-
-
-
 <body>
 
     <section>
@@ -19,7 +15,12 @@
             <h3 class="text-dark text-center"><%= data[0].Pname %></h3>
 
             <p class="text-dark text-center"><%= data[0].Hname %></p>
-            <img src="<%= data[0].bildpfad %>" class="img-fluid mx-auto d-block">
+            <% if ( data[0].anzahl > 0) { %>
+                <img src="<%= data[0].bildpfad %>" class="img-fluid mx-auto d-block">
+            <% } else { %>
+                <img src="/images/not.JPG" class="img-fluid mx-auto d-block">
+            <%} %>
+            
         </div>
 
 
@@ -30,8 +31,8 @@
             <b>Beschreibung: </b><br>
             <p><i><%= data[0].beschreibung %></i><br /></p>
 
-            <form class="form" method="post" action="/add-to-Cart/?pid=<%=data[0].pid%>">
- 
+            
+                <form class="form" method="post" action="/redir/?name=<%= data[0].Pname %>">
                 <div class="row">
                     <div class="col"> <% if (von == null) { %>
 
@@ -80,25 +81,23 @@
                         </script>
                     </div>
 
+
+
+
                     <div class="col">
-                        <button class="btn btn-outline-warning my-2 my-sm-0" id="log" name="log" onclick="update()">Aktualisieren</button>
+                        <button class="btn btn-outline-warning my-2 my-sm-0" id="log" name="log">Aktualisieren</button>
                     </div>
 
-                    
-
-                
+                     
 
                     <div class="col">
-                        <input class="btn btn-outline-warning my-2 my-sm-0 float-right" id="log" type="submit"
-                            name="xsubmit" value="In den Warenkorb" />
+                        <% if ( data[0].anzahl > 0) { %>
+                            <input class="btn btn-outline-warning my-2 my-sm-0 float-right" id="log" type="submit"
+                            formaction="/add-to-Cart/?p=<%=data[0].pid%>" name="xsubmit" value="In den Warenkorb" />
+                        <% } %>
                     </div>
                 </div>
             </form>
-        </div>
-
-        <div>
-            <span>Vorhandene:<%= data[0].anzahl%></span>
-            <span>Pid: <%= data[0].pid%></span>
         </div>
         <!-- Verfügbarkeitstabelle-->
     </section>

@@ -45,10 +45,6 @@ module.exports.routes = (app) => {
       var tempFrom = tmp1;
       var tempTo = tmp2;
 
-      let userDates = { 
-        from : tempFrom, 
-        to : tempTo
-      }
 
      var tempFromArray = tempFrom.split("/");
      var tempToArray = tempTo.split("/");

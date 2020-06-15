@@ -87,6 +87,7 @@ class Payment {
     });
 
     }else {
+        res.
         res.redirect("/login");
     }
 
