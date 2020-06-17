@@ -28,6 +28,10 @@ module.exports.routes = (app) => {
         .post("/register", (req, res) => {
             controller.user.createUser(req, res)
         })
+
+        .get("/register", (req, res) => {
+            res.render("register")
+    })
 };
 
 

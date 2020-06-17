@@ -1,59 +1,87 @@
 <% if (loggedin) { %>
-    <%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
+<%- include("partials/secondaryHeader") %> <% } else { %> <%- include("partials/header") %> <% } %>
 
 <%- include("partials/goToTop") %>
 
 <div class="container">
-    <h3 class="text-center text-dark">Warenkorb</h3>
-<div class="row align-items-center">
-<div class="col-sm">Foto</div>
-<div class="col-sm">Produkt</div>
-<div class="col-sm">Von</div>
-<div class="col-sm">Bis</div>
-<div class="col-sm">Anzahl Tage</div>
-<div class="col-sm">Preis pro Tag</div>
-<div class="col-sm">Entfernen</div>
-</div>
-    <% data.forEach(function(item){ %>
-    <div class="row align-items-center border">
-      <div class="col-sm">
-        <img class="img-fluid" src="/images/mtb/1.jpg">
+  <h3 class="text-center text-dark">Warenkorb</h3>
+  <div class="row align-items-center">
+    <div class="col-sm">Foto</div>
+    <div class="col-sm">Produkt</div>
+    <div class="col-sm">Von</div>
+    <div class="col-sm">Bis</div>
+    <div class="col-sm">Anzahl Tage</div>
+    <div class="col-sm">Preis pro Tag</div>
+    <div class="col-sm">Preis pro Ausleihe</div>
+    <div class="col-sm">Entfernen</div>
+  </div>
+  <script>var test = 0;</script>
+  <% data.forEach(function(item){ %>
+  <div class="row align-items-center border">
+    <div class="col-sm">
+      <img class="img-fluid" src="<%= item.bildpfad%>">
+    </div>
+    <div class="col-sm">
+      <%= item.name%>
+    </div>
+    <div class="col-sm">
+      <%= item.vonDay%>/<%= item.vonMonth%>/<%= item.vonYear%>
+    </div>
+    <div class="col-sm">
+      <%= item.bisDay%>/<%= item.bisMonth%>/<%= item.bisYear%>
+    </div>
+    <div class="col-sm">
+      <%=item.DateDiff%>
+    </div>
+    <div class="col-sm">
+      <%= item.preis%>€
+    </div>
+    <div class="col-sm">
+      <div id="<%= item.name%>">
+
       </div>
-      <div class="col-sm">
-        <%= item.name%>
-      </div>
-      <div class="col-sm">
-        <%= item.vonDay%>/<%= item.vonMonth%>/<%= item.vonYear%>
-      </div>
-      <div class="col-sm">
-        <%= item.bisDay%>/<%= item.bisMonth%>/<%= item.bisYear%>     
-      </div>
-      <div class="col-sm">
-        <%=item.DateDiff%>
-      </div>
-      <div class="col-sm">
-        <%= item.preis%>€
-      </div>
-      <div class="col-sm">
-        <div class="btn-group">
-            <a href="/reduce/?pid=<%=item.pid%>"><button class="btn btn-danger btn-xs" type="button" >Entferne Buchung</button></a>
-        </div>
+      <script>
+        test += parseInt(JSON.parse(JSON.stringify("<%=item.preis%>"))) * parseInt(JSON.parse(JSON.stringify("<%=item.DateDiff%>")));
+        var wrapper = document.getElementById("<%= item.name%>");
+        var myHTML = '';
+        myHTML += "<span>" + parseInt(JSON.parse(JSON.stringify("<%=item.preis%>"))) * parseInt(JSON.parse(JSON.stringify("<%=item.DateDiff%>"))) + "€</span>";
+        wrapper.innerHTML = myHTML;
+        
+      </script>
+    </div>
+    <div class="col-sm">
+      <div class="btn-group">
+        <a href="/reduce/?pid=<%=item.pid%>"><button class="btn btn-danger btn-xs" type="button">Entferne
+            Buchung</button></a>
       </div>
     </div>
-    <% } ); %>
-<br>
-    <div class="row align-items-center justify-content-between">
-      <div class="col-sm">
-        <form method="GET" action="/fahrraeder">
-          <input type="submit" value="Zurück zu den Rädern" name="bsubmit" class="btn btn-success">
+  </div>
+  <% } ); %>
+  <br>
+  <div class="row align-items-center justify-content-between">
+    <div class="col-sm">
+      <form method="GET" action="/fahrraeder">
+        <input type="submit" value="Zurück zu den Rädern" name="bsubmit" class="btn btn-success">
       </form>
-      </div>
-      <div class="col-sm text-right">
-        <% if (data.length > 0) { %>
+    </div>
+    <div id="gesamt">
+
+    </div>
+    <script>
+      var wrapper = document.getElementById("gesamt"); 
+      var myHTML = '';
     
-          <form method="POST" action="/payment">
-              <input type="submit" value="Mit PayPal Bezahlen" name="bsubmit" class="btn btn-warning">
-          </form>
+      myHTML += "<span>"+ "Gesamtpreis: " + test + "€</span>";
+      wrapper.innerHTML = myHTML;
+    </script>
+    
+    <div class="col-sm text-right">
+      <% if (data.length > 0) { %>
+
+
+      <form method="POST" action="/payment">
+        <input type="submit" value="Mit PayPal Bezahlen" name="bsubmit" class="btn btn-warning">
+      </form>
       <%}%>
       </div>
     </div>
