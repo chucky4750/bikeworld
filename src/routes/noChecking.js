@@ -1,7 +1,6 @@
-const constant = require('../constants/constants.js');
 module.exports.routes = (app) => {
 
-    app.get("/noCheck", (req, res) => {
+    app.get("/cancle", (req, res) => {
         res.render("noCheck", {
             loggedin: req.session.loggedin
         })

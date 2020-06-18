@@ -1,6 +1,6 @@
 module.exports.routes = (app) => {
     app.get('/gutschein', function(req, res){
-        res.render("gutschein"); // Set disposition and send it.
+        res.render("gutschein", {loggedin: req.session.loggedin}); 
       });
     
     }

@@ -3,9 +3,9 @@
   
   <%- include("partials/goToTop") %> 
 
-<aside>
+  <aside>
     <div id="wrapper">    
-        <div id="yourdiv"><h1>Bezahlung</h1></div>
+        <div class="text-center"><h1>Zahlungsabbruch</h1></div>
     </div>
 </aside>
 
@@ -16,16 +16,7 @@
             <div class="col-md-12 col-md-offset-1">
                 <div class="process-wrap">
                     <div class="process text-center active">
-                        <p><span calss="icon"><i class="icon-search2"></i></span></p>
-                        <h3>Sitzplatzauswahl</h3>
-                    </div>
-                    <div class="process text-center active">
-                        <p><span calss="icon"><i class="icon-dollar-sign" style="color: red;"></i></span></p>
-                        <h3>Bezahlung</h3>
-                    </div>
-                    <div class="process text-center active">
-                        <p><span calss="icon"><i class="icon-warning2"></i></span></p>
-                        <h3>Fehler</h3>
+                        <img src="/images/no.svg" class="responsiveIMG" width="200" height="200">
                     </div>
                 </div>
             </div>
@@ -33,13 +24,12 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-1 text-center" style="margin-top: 10px;">
-                <span class="icon"><i class="icon-warning2"></i></span>
                 <h2>Leider war die Buchung nicht erfolgreich! </h2>
                 <h4>Probieren Sie es zu einem spätreren Zeitpunkt erneut.</h4>
                 
                     <div lass="col-md-12 col-md-offset-1 text-center">
-                    <a href="/"><button class ="checkout" style="color:black">Zur Startseite</button></a> <!-- Verlinkung zum Index -->
-                    <a href="/films"><button class ="checkout" style="color:black">Zum den Filmen</button></a> <!-- Verlinkung zum Konto -->
+                        <a href="/"><button class ="btn btn-warning" style="color:black">Zur Startseite</button></a>
+                        <a href="/fahrraeder"><button class ="btn btn-warning" style="color:black">Zu den Fahrrädern</button></a>
                 </div>
             </div>
         </div>

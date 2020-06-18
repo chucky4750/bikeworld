@@ -7,6 +7,11 @@
     pointer-events: none;
 }
 
+.responsiveIMG{
+  max-width: 100%;
+  height: auto;
+}
+
 #bttBtn {
   display: none;
   position: fixed;
