@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "balanced-match": "^1.0.0",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "brace-expansion": "^1.1.11",
     "concat-map": "^0.0.1",
     "cookie-parser": "^1.4.5",
